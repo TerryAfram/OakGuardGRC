@@ -1,0 +1,14 @@
+# GRC & Threat Detection Engineering Platform
+
+An interactive compliance mapping, cloud telemetry, and detection-as-code platform built to bridge Governance, Risk, and Compliance (GRC) with hands-on security engineering.
+
+## Architecture
+- **Frontend (`app.py`):** Streamlit dashboard for multi-framework compliance tracking (SOC 2, ISO 27001, NIST) and incident triage.
+- **Backend (`api.py`):** FastAPI service emitting structured telemetry and security signals.
+- **Detection-as-Code (`detections/`):** YAML-defined security rules and automated threat signals.
+- **Deployment & CI/CD (`k8s/`, `.github/workflows/ci.yml`):** Containerized via Docker, orchestrated via Kind in GitHub Actions, and fully compatible with self-hosted or air-gapped environments.
+
+## Local Execution
+Run via Docker Compose:
+```bash
+docker compose up --build
