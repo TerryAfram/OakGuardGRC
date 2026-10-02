@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grc-detection-app
+  labels:
+    app: grc-detection
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grc-detection
+  template:
+    metadata:
+      labels:
+        app: grc-detection
+    spec:
+      containers:
+      - name: grc-app
+        image: grc-app:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8501
+        - containerPort: 8000
+        env:
+        - name: ENVIRONMENT
+          value: "self-hosted"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grc-detection-service
+spec:
+  type: NodePort
+  selector:
+    app: grc-detection
+  ports:
+  - name: streamlit
+    port: 8501
+    targetPort: 8501
+    nodePort: 30085
+  - name: api
+    port: 8000
+    targetPort: 8000
+    nodePort: 30080
